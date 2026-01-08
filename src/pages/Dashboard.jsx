@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUrls, createUrl, deleteUrl } from "../api";
+import "../styles.css";
 
 export default function Dashboard({ onLogout }) {
   const token = localStorage.getItem("token");
@@ -28,53 +29,73 @@ export default function Dashboard({ onLogout }) {
   };
 
   return (
-    <div className="box">
-      <h2>Dashboard</h2>
-      <button
-        onClick={() => {
-          localStorage.clear();
-          onLogout();
-        }}
-      >
-        Logout
-      </button>
+    <div style={{ padding: "40px" }}>
+      <div className="card" style={{ maxWidth: "100%" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h2 className="title">Dashboard</h2>
+          <p
+            className="link"
+            onClick={() => {
+              localStorage.clear();
+              onLogout();
+            }}
+          >
+            Logout
+          </p>
+        </div>
 
-      <input
-        placeholder="Paste long URL"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button onClick={submit}>Shorten</button>
+        <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+          <input
+            className="input"
+            style={{ flex: 1 }}
+            placeholder="Paste long URL"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <button
+            className="button"
+            style={{ width: "160px" }}
+            onClick={submit}
+          >
+            Shorten
+          </button>
+        </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Original</th>
-            <th>Short</th>
-            <th>Clicks</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {urls.map((u) => (
-            <tr key={u._id}>
-              <td>{u.originalUrl}</td>
-              <td>
-                <a
-                  href={`http://localhost:5000/${u.shortCode}`}
-                  target="_blank"
-                >
-                  {u.shortCode}
-                </a>
-              </td>
-              <td>{u.clicks}</td>
-              <td>
-                <button onClick={() => remove(u._id)}>Delete</button>
-              </td>
+        <table style={{ width: "100%", marginTop: "30px" }}>
+          <thead>
+            <tr style={{ textAlign: "left", color: "#6b7280" }}>
+              <th>Original</th>
+              <th>Short</th>
+              <th>Clicks</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {urls.map((u) => (
+              <tr key={u._id} style={{ borderTop: "1px solid #eee" }}>
+                <td>{u.originalUrl}</td>
+                <td>
+                  <a
+                    href={`http://localhost:5000/${u.shortCode}`}
+                    target="_blank"
+                  >
+                    {u.shortCode}
+                  </a>
+                </td>
+                <td>{u.clicks}</td>
+                <td>
+                  <span
+                    style={{ color: "var(--danger)", cursor: "pointer" }}
+                    onClick={() => remove(u._id)}
+                  >
+                    Delete
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

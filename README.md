@@ -1,16 +1,178 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🎨 Frontend – URL Shortener Service
 
-Currently, two official plugins are available:
+This is the **frontend application** for the URL Shortener Service, built as part of a **Full-Stack Developer assignment**.  
+The frontend provides a clean, simple, and user-friendly interface for authentication, URL shortening, and dashboard management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The frontend allows users to:
 
-## Expanding the ESLint configuration
+- Register and log in securely
+- Create short URLs from long URLs
+- View and manage previously created URLs
+- Track click counts for each URL
+- Log out securely
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The UI is designed to be **minimal, professional, and SaaS-like**, without relying on heavy UI libraries.
+
+---
+
+## 🧱 Tech Stack
+
+- **Framework:** React (Vite)
+- **Language:** JavaScript
+- **Styling:** Plain CSS (custom design system)
+- **State Management:** React Hooks
+- **HTTP Communication:** Fetch API / Axios
+- **Authentication:** JWT (stored in localStorage)
+
+---
+
+## ✨ Features
+
+### 🔐 Authentication Pages
+- Login page
+- Registration page
+- Client-side route protection (dashboard accessible only when logged in)
+
+### 🔗 URL Shortening UI
+- Input field to paste long URLs
+- Button to generate short URL
+- Auto-refresh URL list after creation
+
+### 📊 Dashboard
+- Table-based layout displaying:
+  - Original URL (truncated for readability)
+  - Short code
+  - Full shortened URL
+  - Total clicks
+- Delete URL functionality
+- Logout option
+
+### 🎨 UI/UX
+- Centered auth cards
+- Responsive layout
+- Clean spacing and typography
+- Consistent color system
+- Accessible form inputs
+
+---
+
+## 📁 Folder Structure
+
+```
+frontend/
+├── src/
+│   ├── api/
+│   │   └── index.js        # API request functions
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   └── Dashboard.jsx
+│   ├── styles.css          # Custom UI design system
+│   ├── index.css           # Global styles
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── public/
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Navigate to frontend directory
+```bash
+cd frontend
+```
+
+### 2️⃣ Install dependencies
+```bash
+npm install
+```
+
+### 3️⃣ Start development server
+```bash
+npm run dev
+```
+
+The application will run at:
+👉 **http://localhost:5173**
+
+---
+
+## 🔌 Environment Variables
+
+The frontend expects the backend API base URL.
+
+Create a `.env` file in the frontend root:
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+> Make sure the backend server is running before using the frontend.
+
+---
+
+## 🔁 API Integration
+
+All API calls are centralized in:
+
+```
+src/api/index.js
+```
+
+This includes:
+- `login()`
+- `register()`
+- `getUrls()`
+- `createUrl()`
+- `deleteUrl()`
+
+This structure keeps components clean and readable.
+
+---
+
+## 🎨 Design Decisions
+
+- Used **plain CSS** instead of Tailwind or UI frameworks for full control
+- Centralized reusable styles (`styles.css`)
+- Simple component structure for easy maintenance
+- Focused on readability and assignment clarity over over-engineering
+
+---
+
+## ⚠️ Known Limitations
+
+- No form validation UI (relies on backend responses)
+- No loading/skeleton states
+- No dark mode (can be added easily)
+- Alerts used instead of toast notifications
+
+---
+
+## ✅ Pre-Submission Checklist (Frontend)
+
+- [x] Runs on fresh install
+- [x] No sensitive data committed
+- [x] Environment variables documented
+- [x] Clean UI & readable code
+- [x] Matches assignment requirements
+
+---
+
+## 👨‍💻 Author
+
+**Reazul Islam Reaz**  
+Applied Position: **Full-Stack Developer**
+
+---
+
+> This frontend is designed to work seamlessly with the backend service provided in the same repository.
