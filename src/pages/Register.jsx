@@ -11,33 +11,29 @@ export default function Register({ goLogin }) {
   const [loading, setLoading] = useState(false);
 
   const submit = async () => {
-    if (!email || !password) {
+    if (!email.trim() || !password.trim()) {
       return Swal.fire("Invalid Input", "All fields are required", "error");
     }
 
     if (!isValidEmail(email)) {
-      return Swal.fire(
-        "Invalid Email",
-        "Please enter a valid email address",
-        "error"
-      );
+      return Swal.fire("Invalid Email", "Enter a valid email address", "error");
     }
 
     if (password.length < 6) {
       return Swal.fire(
         "Weak Password",
-        "Password must be at least 6 characters",
+        "Minimum 6 characters required",
         "error"
       );
     }
 
     try {
       setLoading(true);
-      const res = await register({ email, password });
+      await register({ email, password });
 
       Swal.fire({
         icon: "success",
-        title: "Account Created ",
+        title: "Account Created",
         text: "Please login to continue",
         timer: 1500,
         showConfirmButton: false,
@@ -45,11 +41,16 @@ export default function Register({ goLogin }) {
 
       setTimeout(goLogin, 1500);
     } catch (err) {
-      Swal.fire(
-        "Registration Failed",
-        err?.response?.data?.message || "Something went wrong",
-        "error"
-      );
+      const status = err?.response?.status;
+      const message = err?.response?.data?.message;
+
+      if (status === 409) {
+        Swal.fire("User Exists", "Email already registered", "warning");
+      } else if (status === 400) {
+        Swal.fire("Registration Failed", message, "error");
+      } else {
+        Swal.fire("Error", "Something went wrong", "error");
+      }
     } finally {
       setLoading(false);
     }
@@ -63,6 +64,7 @@ export default function Register({ goLogin }) {
 
         <input
           className="input"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

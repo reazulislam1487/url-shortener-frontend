@@ -1,12 +1,26 @@
 const API = "http://localhost:5000";
 
+async function handleResponse(res) {
+  const data = await res.json();
+
+  if (!res.ok) {
+    const error = new Error(data.message || "Request failed");
+    error.status = res.status;
+    error.data = data;
+    throw error;
+  }
+
+  return data;
+}
+
 export async function register(data) {
   const res = await fetch(`${API}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return res.json();
+
+  return handleResponse(res);
 }
 
 export async function login(data) {
@@ -15,7 +29,8 @@ export async function login(data) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return res.json();
+
+  return handleResponse(res);
 }
 
 export async function getUrls(token) {
@@ -24,7 +39,8 @@ export async function getUrls(token) {
       Authorization: `Bearer ${token}`,
     },
   });
-  return res.json();
+
+  return handleResponse(res);
 }
 
 export async function createUrl(token, originalUrl) {
@@ -36,7 +52,8 @@ export async function createUrl(token, originalUrl) {
     },
     body: JSON.stringify({ originalUrl }),
   });
-  return res.json();
+
+  return handleResponse(res);
 }
 
 export async function deleteUrl(token, id) {
@@ -46,5 +63,6 @@ export async function deleteUrl(token, id) {
       Authorization: `Bearer ${token}`,
     },
   });
-  return res.json();
+
+  return handleResponse(res);
 }

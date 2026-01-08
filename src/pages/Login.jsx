@@ -3,8 +3,7 @@ import Swal from "sweetalert2";
 import { login } from "../api";
 import "../styles.css";
 
-const isValidEmail = (email) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 export default function Login({ goRegister, onLogin }) {
   const [email, setEmail] = useState("");
@@ -61,6 +60,7 @@ export default function Login({ goRegister, onLogin }) {
 
         <input
           className="input"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -74,11 +74,7 @@ export default function Login({ goRegister, onLogin }) {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button
-          className="button"
-          onClick={submit}
-          disabled={loading}
-        >
+        <button className="button" onClick={submit} disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
 
