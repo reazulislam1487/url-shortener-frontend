@@ -1,4 +1,3 @@
-
 # 🎨 Frontend – URL Shortener Service
 
 This is the **frontend application** for the URL Shortener Service, built as part of a **Full-Stack Developer assignment**.  
@@ -34,16 +33,19 @@ The UI is designed to be **minimal, professional, and SaaS-like**, without relyi
 ## ✨ Features
 
 ### 🔐 Authentication Pages
+
 - Login page
 - Registration page
 - Client-side route protection (dashboard accessible only when logged in)
 
 ### 🔗 URL Shortening UI
+
 - Input field to paste long URLs
 - Button to generate short URL
 - Auto-refresh URL list after creation
 
 ### 📊 Dashboard
+
 - Table-based layout displaying:
   - Original URL (truncated for readability)
   - Short code
@@ -53,6 +55,7 @@ The UI is designed to be **minimal, professional, and SaaS-like**, without relyi
 - Logout option
 
 ### 🎨 UI/UX
+
 - Centered auth cards
 - Responsive layout
 - Clean spacing and typography
@@ -88,16 +91,19 @@ frontend/
 ## ⚙️ Setup Instructions
 
 ### 1️⃣ Navigate to frontend directory
+
 ```bash
 cd frontend
 ```
 
 ### 2️⃣ Install dependencies
+
 ```bash
 npm install
 ```
 
 ### 3️⃣ Start development server
+
 ```bash
 npm run dev
 ```
@@ -114,7 +120,7 @@ The frontend expects the backend API base URL.
 Create a `.env` file in the frontend root:
 
 ```env
-VITE_API_URL=http://localhost:5000
+VITE_API_BASE_URL=http://localhost:5000
 ```
 
 > Make sure the backend server is running before using the frontend.
@@ -130,6 +136,7 @@ src/api/index.js
 ```
 
 This includes:
+
 - `login()`
 - `register()`
 - `getUrls()`
